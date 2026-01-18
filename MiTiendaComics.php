@@ -1,0 +1,91 @@
+<?php
+// Definición del inventario de cómics
+$inventario = [
+    'suspense_terror' => [
+        ['titulo' => 'The Long Halloween', 'editorial' => 'DC', 'autor' => 'Tim Sale', 'idioma' => 'Inglés', 'precio' => 20, 'stock' => 10],
+        ['titulo' => 'Uzumaki', 'editorial' => 'Planeta', 'autor' => 'Junji Ito', 'idioma' => 'Japonés', 'precio' => 25, 'stock' => 15],
+        ['titulo' => 'Tomie', 'editorial' => 'Planeta', 'autor' => 'Junji Ito', 'idioma' => 'Japonés', 'precio' => 25, 'stock' => 20],
+    ],
+    'accion' => [
+        ['titulo' => 'Berserk Deluxe Edition 1', 'editorial' => 'Dark Horse', 'autor' => 'Kentaro Miura', 'idioma' => 'Japonés', 'precio' => 30, 'stock' => 12],
+    ],
+    // Puedes agregar más categorías y cómics según sea necesario
+];
+
+// main
+// antes descuento
+mostrarComicsEnTabla();
+
+mostrarValorAlmacen();
+
+aplicarDescuentoManga();
+
+// mostramos el inventario actualizado
+mostrarComicsEnTabla();
+
+mostrarValorAlmacen();
+
+
+function mostrarComicsEnTabla()
+{
+    global $inventario;
+    echo '<br>';
+    echo '<table border="1">';
+    echo '<tr><th>Categoría</th><th>Título</th><th>Editorial</th><th>Autor</th><th>Idioma</th><th>Precio</th><th>Stock</th></tr>';
+
+    foreach ($inventario as $categoria => $comics) {
+        foreach ($comics as $comic) {
+            echo '<tr>';
+            echo "<td>$categoria</td>";
+            echo "<td>{$comic['titulo']}</td>";
+            echo "<td>{$comic['editorial']}</td>";
+            echo "<td>{$comic['autor']}</td>";
+            echo "<td>{$comic['idioma']}</td>";
+            echo "<td>{$comic['precio']}</td>";
+            echo "<td>{$comic['stock']}</td>";
+            echo '</tr>';
+        }
+    }
+
+    echo '</table>';
+}
+
+function mostrarValorAlmacen()
+{
+    // pending
+    global $inventario;
+
+    //Inicializo la variable de la suma total del almacén.
+    $valorTotalAlm = 0;
+
+    //Explora todos los elementos de cada categoria del array.
+    foreach ($inventario as $categoria => &$listaComics){
+        //Explora por cada elemento y obtener sus datos.
+        foreach ($listaComics as $comic) {
+            //Se multiplica el valor "precio" y "stock" de cada elemento.
+            $valorAlmComic = $comic['precio'] * $comic['stock'];
+            //El resultado anterior se sumará al valor del total.
+            $valorTotalAlm += $valorAlmComic;
+        }
+    }
+
+    //Se imprime por pantalla el valor total del almacén.
+    echo "Total valor almacen es: " . $valorTotalAlm . "<br>";
+}
+
+function aplicarDescuentoManga()
+{
+    global $inventario;
+
+    foreach ($inventario as $categoria => &$listaComics) {
+        //Acceder a los elementos y sus datos.
+        foreach ($listaComics as &$comic) {
+            if ($comic['idioma'] == 'Japonés') {
+                $comic['precio'] = $comic['precio'] * 0.7; // Aplicar descuento del 30%
+            }
+        }
+    }
+}
+?>
+
+
