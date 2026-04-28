@@ -162,6 +162,8 @@
     echo "La nota más alta es " . $nota_max . " y el mejor alumno es " . $mejor_alumno;
     ?>
 
+    //Comentario merge branch 1
+
 </body>
 </html>
 
